@@ -1,21 +1,76 @@
 {
-  "family": "my-react-task",
-  "networkMode": "awsvpc",
-  "executionRoleArn": "arn:aws:iam::YOUR_ACCOUNT_ID:role/ecsTaskExecutionRole",
-  "containerDefinitions": [
-    {
-      "name": "react-app",
-      "image": "YOUR_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/your-ecr-repo:latest",
-      "essential": true,
-      "portMappings": [
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:339712843199:task-definition/nginx-task:14",
+    "containerDefinitions": [
         {
-          "containerPort": 86,
-          "protocol": "tcp"
+            "name": "marck-react-app",
+            "image": "339712843199.dkr.ecr.us-east-1.amazonaws.com/marck-react-repo",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 3000,
+                    "hostPort": 3000,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/nginx-tf-app",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "systemControls": []
         }
-      ]
-    }
-  ],
-  "requiresCompatibilities": ["FARGATE"],
-  "cpu": "256",
-  "memory": "512"
+    ],
+    "family": "nginx-task",
+    "taskRoleArn": "arn:aws:iam::339712843199:role/ecsTaskRole",
+    "executionRoleArn": "arn:aws:iam::339712843199:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 14,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "registeredAt": "2025-06-21T16:56:01.324Z",
+    "registeredBy": "arn:aws:iam::339712843199:user/mike",
+    "tags": []
 }
